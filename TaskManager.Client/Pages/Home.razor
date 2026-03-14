@@ -1,0 +1,12 @@
+﻿@page "/"
+
+<PageTitle>Task Manager</PageTitle>
+
+<h1>My Task Manager</h1>
+
+<p>Today's date is: @currentDate</p>
+
+@code
+{
+    private string currentDate = DateTime.Now.ToLongDateString();
+}
