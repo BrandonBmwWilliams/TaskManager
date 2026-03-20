@@ -1,0 +1,53 @@
+﻿@page "/submit"
+<PageTitle>Submit a Ticket</PageTitle>
+<h1>Submit a Support Ticket</h1>
+
+<EditForm Model="newTicket" OnValidSubmit="HandleSubmit" FormName="SubmitTicketForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div>
+        <label>Title</label>
+        <InputText @bind-Value="newTicket.Title" />
+        <ValidationMessage For="() => newTicket.Title" />
+    </div>
+    <div>
+        <label>Description</label>
+        <InputTextArea @bind-Value="newTicket.Description" />
+        <ValidationMessage For="() => newTicket.Description" />
+    </div>
+    <div>
+        <label>Priority</label>
+        <InputSelect @bind-Value="newTicket.Priority">
+            @foreach (var priority in Enum.GetValues<TicketPriority>())
+            {
+                <option value="@priority">@priority</option>
+            }
+        </InputSelect>
+    </div>
+    <div>
+        <label>Your Name</label>
+        <InputText @bind-Value="newTicket.SubmittedBy" />
+        <ValidationMessage For="() => newTicket.SubmittedBy" />
+    </div>
+    <button type="submit">Submit Ticket</button>
+</EditForm>
+@if (isSubmitted)
+{
+    <div>
+        <h3>Ticket Submitted!</h3>
+        <p>Title: @newTicket.Title</p>
+        <p>Priority: @newTicket.Priority</p>
+        <p>Status: @newTicket.Status</p>
+    </div>
+}
+
+@code
+{
+    private Ticket newTicket = new();
+    private bool isSubmitted = false;
+
+    private void HandleSubmit()
+    {
+        isSubmitted = true;
+    }
+}

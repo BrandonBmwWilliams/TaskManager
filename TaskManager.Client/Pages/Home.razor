@@ -1,12 +1,13 @@
 ﻿@page "/"
-
-<PageTitle>Task Manager</PageTitle>
-
-<h1>My Task Manager</h1>
-
-<p>Today's date is: @currentDate</p>
+<PageTitle>Help Desk</PageTitle>
+<h1>Welcome to the IT Help Desk</h1>
+<p>Use the links below to navigate:</p>
+<ul>
+    <li><a href="/submit">Submit a Ticket</a></li>
+    <li><a href="/dashboard">View Dashboard</a></li>
+</ul>
 
 @code
 {
-    private string currentDate = DateTime.Now.ToLongDateString();
+
 }
