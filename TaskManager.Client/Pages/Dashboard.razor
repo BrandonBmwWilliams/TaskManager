@@ -1,6 +1,9 @@
 ﻿@page "/dashboard"
 
-<h3>Dashboard</h3>
+@inject ITicketService TicketService
+<PageTitle>Dashboard</PageTitle>
+<a href="/">← Back to Home</a>
+<h1>Support Ticket Dashboard</h1>
 <div>
     <strong>Total Tickets: @tickets.Count</strong>
 </div>
@@ -29,7 +32,7 @@ else
             @foreach (var ticket in tickets)
             {
                 <tr>
-                    <td>@ticket.Id</td>
+                    <td><a href="/ticket/@ticket.Id">@ticket.Title</a></td>
                     <td>@ticket.Title</td>
                     <td>@ticket.Priority</td>
                     <td>@ticket.Status</td>
@@ -41,33 +44,12 @@ else
     </table>
 }
 
-@code
-{
-    private List<Ticket> tickets = new()
+
+@code {
+    private List<Ticket> tickets = new();
+
+    protected override void OnInitialized()
     {
-        new Ticket {
-            Id = 1,
-            Title = "Printer not working",
-            Description = "3rd floor HP LaserJet showing error",
-            Priority = TicketPriority.High,
-            SubmittedBy = "John Smith",
-            CreatedAt = DateTime.Now.AddHours(-2)
-        },
-        new Ticket {
-            Id = 2,
-            Title = "Need VPN access",
-            Description = "New employee needs VPN setup",
-            Priority = TicketPriority.Medium,
-            SubmittedBy = "Jane Doe",
-            CreatedAt = DateTime.Now.AddDays(-1)
-        },
-        new Ticket {
-            Id = 3,
-            Title = "Email server down",
-            Description = "No one in accounting can send emails",
-            Priority = TicketPriority.Critical,
-            SubmittedBy = "Bob Wilson",
-            CreatedAt = DateTime.Now.AddMinutes(-30)
-        }
-    };
+        tickets = TicketService.GetAllTickets();
+    }
 }

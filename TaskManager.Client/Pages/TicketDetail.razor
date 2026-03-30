@@ -1,0 +1,63 @@
+﻿@page "/ticket/{Id:int}"
+@inject ITicketService TicketService
+<PageTitle>Ticket #@Id</PageTitle>
+<a href="/dashboard">← Back to Dashboard</a>
+
+@if (ticket == null)
+{
+    <p>Ticket not found.</p>
+}
+else
+{
+    <h1>Ticket #@ticket.Id: @ticket.Title</h1>
+    <div>
+        <strong>Status:</strong> @ticket.Status
+    </div>
+    <div>
+        <strong>Priority:</strong> @ticket.Priority
+    </div>
+    <div>
+        <strong>Submitted By:</strong> @ticket.SubmittedBy
+    </div>
+    <div>
+        <strong>Created:</strong> @ticket.CreatedAt.ToString("f")
+    </div>
+    <div>
+        <strong>Description:</strong>
+        <p>@ticket.Description</p>
+    </div>
+    <h3>Update Status</h3>
+    <div>
+        <select @bind="selectedStatus">
+            @foreach (var status in Enum.GetValues<TicketStatus>())
+            {
+                <option value="@status">@status</option>
+            }
+        </select>
+        <button @onclick="HandleStatusUpdate">Update Status</button>
+    </div>
+}
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private Ticket? ticket;
+    private TicketStatus selectedStatus;
+
+    protected override void OnInitialized()
+    {
+        ticket = TicketService.GetTicketById(Id);
+        if (ticket != null)
+        {
+            selectedStatus = ticket.Status;
+        }
+    }
+
+    private void HandleStatusUpdate()
+    {
+        TicketService.UpdateTicketStatus(Id, selectedStatus);
+        ticket = TicketService.GetTicketById(Id);
+    }
+}

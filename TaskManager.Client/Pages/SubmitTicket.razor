@@ -1,8 +1,10 @@
 ﻿@page "/submit"
+@inject ITicketService TicketService
 <PageTitle>Submit a Ticket</PageTitle>
+<a href="/">← Back to Home</a>
 <h1>Submit a Support Ticket</h1>
 
-<EditForm Model="newTicket" OnValidSubmit="HandleSubmit" FormName="SubmitTicketForm">
+<EditForm Model="newTicket" OnValidSubmit="HandleSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div>
@@ -35,9 +37,8 @@
 {
     <div>
         <h3>Ticket Submitted!</h3>
-        <p>Title: @newTicket.Title</p>
-        <p>Priority: @newTicket.Priority</p>
-        <p>Status: @newTicket.Status</p>
+        <p>Title: @submittedTitle</p>
+        
     </div>
 }
 
@@ -45,9 +46,13 @@
 {
     private Ticket newTicket = new();
     private bool isSubmitted = false;
+    private string submittedTitle = "";
 
     private void HandleSubmit()
     {
+        submittedTitle = newTicket.Title;
+        TicketService.AddTicket(newTicket);
+        newTicket = new Ticket();
         isSubmitted = true;
     }
 }
