@@ -11,10 +11,10 @@ else
 {
     <h1>Ticket #@ticket.Id: @ticket.Title</h1>
     <div>
-        <strong>Status:</strong> @ticket.Status
+        <strong>Status:</strong> <StatusBadge Status="ticket.Status" />
     </div>
     <div>
-        <strong>Priority:</strong> @ticket.Priority
+        <strong>Priority:</strong> <PriorityBadge Priority="ticket.Priority" />
     </div>
     <div>
         <strong>Submitted By:</strong> @ticket.SubmittedBy

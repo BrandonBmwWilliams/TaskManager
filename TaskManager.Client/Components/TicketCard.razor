@@ -1,0 +1,19 @@
+﻿<div class="ticket-card">
+    <div class="ticket-card-header">
+        <a href="/ticket/@Ticket.Id">
+            <strong>#@Ticket.Id</strong> — @Ticket.Title
+        </a>
+    </div>
+    <div class="ticket-card-body">
+        <StatusBadge Status="Ticket.Status" />
+        <PriorityBadge Priority="Ticket.Priority" />
+        <span>@Ticket.SubmittedBy</span>
+        <span>@Ticket.CreatedAt.ToString("g")</span>
+    </div>
+</div>You 
+
+@code
+{
+    [Parameter]
+    public Ticket Ticket { get; set; } = new();
+}
