@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="TaskManager.Client/TaskManager.Client.csproj" />
+  <Project Path="TaskManager.Server/TaskManager.Server.csproj" Id="7107a57b-1c29-4440-afae-9715de2aa31b" />
+  <Project Path="TaskManager.Shared/TaskManager.Shared.csproj" Id="a6d88a65-a36d-43fe-aa39-15383031da9f" />
 </Solution>

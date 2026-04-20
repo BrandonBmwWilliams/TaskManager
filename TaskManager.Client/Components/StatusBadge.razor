@@ -1,0 +1,9 @@
+﻿<span class="badge status-@Status.ToString().ToLower()">
+    @Status
+</span>
+
+@code
+{
+    [Parameter]
+    public TicketStatus Status { get; set; }
+}
