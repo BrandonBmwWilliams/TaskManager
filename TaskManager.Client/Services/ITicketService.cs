@@ -1,12 +1,13 @@
-﻿using TaskManager.Client.Models;
+﻿using TaskManager.Shared.DTOs;
+using TaskManager.Shared.Models;
 
 namespace TaskManager.Client.Services;
 
 public interface ITicketService
 {
-    List<Ticket> GetAllTickets();
-    void AddTicket(Ticket ticket);
-    Ticket? GetTicketById(int id);
-
-    void UpdateTicketStatus(int id, TicketStatus newStatus);
+    Task<List<Ticket>> GetAllTicketsAsync();
+    Task<Ticket?> GetTicketByIdAsync(int id);
+    Task<Ticket?> CreateTicketAsync(CreateTicketDto dto);
+    Task UpdateTicketStatusAsync(int id, UpdateTicketStatusDto dto);
+    Task DeleteTicketAsync(int id);
 }

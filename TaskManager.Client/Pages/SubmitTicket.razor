@@ -1,7 +1,6 @@
 ﻿@page "/submit"
 @inject ITicketService TicketService
 <PageTitle>Submit a Ticket</PageTitle>
-<a href="/">← Back to Home</a>
 <h1>Submit a Support Ticket</h1>
 
 <EditForm Model="newTicket" OnValidSubmit="HandleSubmit">
@@ -33,26 +32,26 @@
     </div>
     <button type="submit">Submit Ticket</button>
 </EditForm>
+
 @if (isSubmitted)
 {
     <div>
         <h3>Ticket Submitted!</h3>
         <p>Title: @submittedTitle</p>
-        
     </div>
 }
 
 @code
 {
-    private Ticket newTicket = new();
+    private CreateTicketDto newTicket = new();
     private bool isSubmitted = false;
     private string submittedTitle = "";
 
-    private void HandleSubmit()
+    private async Task HandleSubmit()
     {
         submittedTitle = newTicket.Title;
-        TicketService.AddTicket(newTicket);
-        newTicket = new Ticket();
+        await TicketService.CreateTicketAsync(newTicket);
+        newTicket = new CreateTicketDto();
         isSubmitted = true;
     }
 }

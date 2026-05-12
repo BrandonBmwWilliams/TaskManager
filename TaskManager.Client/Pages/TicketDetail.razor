@@ -46,18 +46,19 @@ else
     private Ticket? ticket;
     private TicketStatus selectedStatus;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        ticket = TicketService.GetTicketById(Id);
+        ticket = await TicketService.GetTicketByIdAsync(Id);
         if (ticket != null)
         {
             selectedStatus = ticket.Status;
         }
     }
 
-    private void HandleStatusUpdate()
+    private async Task HandleStatusUpdate()
     {
-        TicketService.UpdateTicketStatus(Id, selectedStatus);
-        ticket = TicketService.GetTicketById(Id);
+        var dto = new UpdateTicketStatusDto { Status = selectedStatus };
+        await TicketService.UpdateTicketStatusAsync(Id, dto);
+        ticket = await TicketService.GetTicketByIdAsync(Id);
     }
 }

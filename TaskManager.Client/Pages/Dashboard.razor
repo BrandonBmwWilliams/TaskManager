@@ -23,8 +23,8 @@ else
 {
     private List<Ticket> tickets = new();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        tickets = TicketService.GetAllTickets();
+        tickets = await TicketService.GetAllTicketsAsync();
     }
 }
